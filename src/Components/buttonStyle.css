@@ -1,14 +1,22 @@
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
 /* Login Button - Gradient border, solid fill on hover */
 .login-btn {
   position: relative;
-  padding: 12px 24px;
-  background: white;
+  padding: 1rem 2.6rem;
+  background: #000000;
   border: none;
   border-radius: 150px;
-  font-weight: 600;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
   cursor: pointer;
-  color: #333;
-  transition: all 0.3s ease;
+  color: #ffffff;
+  transition: color 0.3s ease;
+  margin-right: 10px;
+  min-width: 120px;
+  text-align: center;
+  overflow: hidden;
 }
 
 .login-btn::before {
@@ -21,30 +29,66 @@
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  pointer-events: none;
   transition: opacity 0.3s ease;
-  
+  z-index: 1;
+}
+
+.login-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 150px;
+  padding: 2px;
+  background: linear-gradient(135deg, #9BC5D9, #B88FA8);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 .login-btn:hover {
-  background: #CEEAF7;
+  color: #cccccc;
 }
 
 .login-btn:hover::before {
   opacity: 0;
 }
 
+.login-btn:hover::after {
+  opacity: 1;
+}
+
 /* Sign Up Button - Solid color, changes on hover */
 .signup-btn {
-  padding: 12px 24px;
-  background: #CEEAF7;
+  position: relative;
+  padding: 1rem 2.6rem;
+  background: linear-gradient(135deg, #CEEAF7, #DCB8CB);
   border: none;
   border-radius: 150px;
-  font-weight: 600;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
   cursor: pointer;
   color: #333;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
+  margin-left: 10px;
+  min-width: 120px;
+  text-align: center;
+  overflow: hidden;
 }
 
 .signup-btn:hover {
-  background: #DCB8CB;
+  background: linear-gradient(135deg, #9BC5D9, #B88FA8);
+  color: #1a1a1a;
+}
+
+.hero::before,
+.hero::after,
+.title::before,
+.title::after {
+    content: none !important;
 }

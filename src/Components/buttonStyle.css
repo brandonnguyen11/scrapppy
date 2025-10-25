@@ -1,0 +1,50 @@
+/* Login Button - Gradient border, solid fill on hover */
+.login-btn {
+  position: relative;
+  padding: 12px 24px;
+  background: white;
+  border: none;
+  border-radius: 150px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.login-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 150px;
+  padding: 2px;
+  background: linear-gradient(135deg, #CEEAF7, #DCB8CB);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity 0.3s ease;
+  
+}
+
+.login-btn:hover {
+  background: #CEEAF7;
+}
+
+.login-btn:hover::before {
+  opacity: 0;
+}
+
+/* Sign Up Button - Solid color, changes on hover */
+.signup-btn {
+  padding: 12px 24px;
+  background: #CEEAF7;
+  border: none;
+  border-radius: 150px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.3s ease;
+}
+
+.signup-btn:hover {
+  background: #DCB8CB;
+}

@@ -1,9 +1,11 @@
 import React from "react";
-// import logo from './Components/logo3.svg';
+import { useNavigate } from 'react-router-dom';
 import Button from './Components/Button';
 import './homepageStyle.css';
 
 function Homepage() {
+    const navigate = useNavigate();
+
     return (
         
         <div className="homepage">
@@ -19,6 +21,7 @@ function Homepage() {
                     .homepage {
                     font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
                     color: #111;
+                    overflow-y: hidden;
                     }
 
                     /* Header */
@@ -314,12 +317,12 @@ function Homepage() {
                     <Button 
                         text="Log in" 
                         variant="login" 
-                        onClick={() => window.location.href = '/login'} 
+                        onClick={() => navigate('/login')} 
                     />
                     <Button 
                         text="Sign up" 
                         variant="signup" 
-                        onClick={() => window.location.href = '/signup'} 
+                        onClick={() => navigate('/signup')} 
                     />
                 </div>
             </header>
@@ -333,10 +336,7 @@ function Homepage() {
                     <div>
                         <button
                             className="cta"
-                            onClick={() => {
-                                // replace with navigation logic (e.g. react-router) in a real app
-                                window.alert("Get started clicked");
-                            }}
+                            onClick={() => navigate('/signup')}
                         >
                             Get Started
                         </button>

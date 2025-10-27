@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './LoginPage.css';
+import {doSignInWithEmailAndPassword} from '../../../firebase/auth';
+import { doSignInWithGoogle } from './firebase/authService';
+import { auth } from './firebase/firebase';
+import { useAuth } from './contexts/authContext';
 
 function LoginPage() {
+
+  const { userLoggedIn } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   
@@ -12,6 +21,12 @@ function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    
+    if(!isSigningIn) {
+      setIsSigningIn(true);
+      await doSignInWithEmailAndPassword(email, password)
+    }
+
     
     if (email && password) {
       console.log('Logging in with:', { email, password, keepLoggedIn });
@@ -21,13 +36,25 @@ function LoginPage() {
     }
   };
 
+  const onGoogleSignIn = (e) => {
+    e.preventDefault();
+    if(!isSigningIn) {
+      setIsSigningIn(true);
+      doSignInWithGoogle().catch(err => {
+        setErrorMessage(err.message);
+        setIsSigningIn(false);
+      });
+    }
+  };
+
   return (
     <div className="login-container">
       {/* Left side - Animated background */}
       <div className="login-animated-bg">
         
       </div>
-
+      {userLoggedIn && (<Navigate to={'home'} replace={true} />)}
+      
       {/* Right side - Login form */}
       <div className="login-form-container">
         <div className="login-form-wrapper">

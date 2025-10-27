@@ -3,6 +3,7 @@ import { auth } from "../../firebase/firebase";
 import React, { useState, useEffect, useContext } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 
+
 const AuthContext = React.createContext();
 
 export function useAuth(){ // hook to use auth context
@@ -16,7 +17,7 @@ export function AuthProvider({ children }){
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, initializeUser);
         return unsubscribe;
-        });
+    });
 
     async function initializeUser(user){
         if(user){
@@ -30,13 +31,13 @@ export function AuthProvider({ children }){
 
     const value = {
         currentUser,
-        userLoggedIn
+        userLoggedIn,
         loading
     };
 
-    return {
+    return (
         <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>
-    }
+    );
 } 

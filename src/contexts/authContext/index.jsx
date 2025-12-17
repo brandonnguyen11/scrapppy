@@ -1,43 +1,34 @@
-import { use } from "react";
-import { auth } from "../../firebase/firebase";
-import React, { useState, useEffect, useContext } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
+const AuthContext = createContext(undefined);
 
-const AuthContext = React.createContext();
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
 
-export function useAuth(){ // hook to use auth context
-    return useContext(AuthContext);
-}
-export function AuthProvider({ children }){
-    const[currentUser, setCurrentUser] = useState(null);
-    const [userLoggedIn, setUserLoggedIn] = useState(false);
-    const [loading, setLoading] = useState(true);
+export const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, initializeUser);
-        return unsubscribe;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
     });
 
-    async function initializeUser(user){
-        if(user){
-            setCurrentUser({ ...user});
-            setUserLoggedIn(true);
-        } else {
-            setCurrentUser(null);
-            setUserLoggedIn(false);
-        }
-    }
+    return unsubscribe;
+  }, []);
 
-    const value = {
-        currentUser,
-        userLoggedIn,
-        loading
-    };
+  const value = {
+    currentUser,
+    userLoggedIn: !!currentUser,
+  };
 
-    return (
-        <AuthContext.Provider value={value}>
-            {!loading && children}
-        </AuthContext.Provider>
-    );
-} 
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
+};

@@ -1,3 +1,12 @@
+import {
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    sendEmailVerification,
+    sendPasswordResetEmail,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+    updatePassword,
+} from "firebase/auth";
 import { auth } from "./firebase.js";
 import {
   createUserWithEmailAndPassword,
